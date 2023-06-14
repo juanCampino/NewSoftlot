@@ -64,24 +64,26 @@ class _MyHomePageState extends State<MyHomePage> {
               tileMode: TileMode.mirror,
             ),
           ),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 70,
-              ),
-              const Image(
-                image: AssetImage('assets/logo.png'),
-              ),
-              Container(
-                margin: const EdgeInsets.all(25),
-                width: 450,
-                decoration: BoxDecoration(
-                  color: const Color.fromRGBO(29, 69, 111, 1),
-                  borderRadius: BorderRadius.circular(30.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 70,
                 ),
-                child: const LoginForm(),
-              )
-            ],
+                const Image(
+                  image: AssetImage('assets/logo.png'),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(25),
+                  width: 450,
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(29, 69, 111, 1),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: const LoginForm(),
+                )
+              ],
+            ),
           )),
     );
   }
