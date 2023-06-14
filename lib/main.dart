@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Soflot',
+      title: 'SOFTLOT',
       theme: ThemeData(
         inputDecorationTheme: const InputDecorationTheme(
           labelStyle: TextStyle(color: Colors.white),
@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 70,
               ),
               const Image(
-                image: AssetImage('lib/assets/logo.png'),
+                image: AssetImage('assets/logo.png'),
               ),
               Container(
                 margin: const EdgeInsets.all(25),
