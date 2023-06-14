@@ -11,8 +11,23 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Soflot',
       theme: ThemeData(
+        inputDecorationTheme: const InputDecorationTheme(
+          labelStyle: TextStyle(color: Colors.white),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue),
+          ),
+          floatingLabelStyle: TextStyle(color: Colors.blue),
+          fillColor: Colors.white,
+          contentPadding: EdgeInsets.only(top: 2, bottom: 2),
+        ),
+        textSelectionTheme:
+            const TextSelectionThemeData(cursorColor: Colors.blue),
         colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(0, 69, 145, 1)),
+          seedColor: Colors.blue,
+        ),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Softlot'),
@@ -29,13 +44,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  String user = '';
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  void _clearFields() {}
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +55,11 @@ class _MyHomePageState extends State<MyHomePage> {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
-              end: Alignment(0, 1.5),
+              end: Alignment(0, 1.3),
               colors: <Color>[
                 Color.fromRGBO(0, 70, 145, 1),
                 Color.fromRGBO(27, 90, 131, 1),
-                Color.fromRGBO(193, 215, 44, 1),
+                Color.fromRGBO(174, 195, 40, 1),
               ],
               tileMode: TileMode.mirror,
             ),
@@ -56,19 +67,19 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: [
               const SizedBox(
-                height: 100,
+                height: 70,
               ),
               const Image(
                 image: AssetImage('lib/assets/logo.png'),
               ),
               Container(
                 margin: const EdgeInsets.all(25),
-                width: 600,
+                width: 450,
                 decoration: BoxDecoration(
                   color: const Color.fromRGBO(29, 69, 111, 1),
                   borderRadius: BorderRadius.circular(30.0),
                 ),
-                child: LoginForm(),
+                child: const LoginForm(),
               )
             ],
           )),
@@ -76,66 +87,99 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  final TextEditingController _userController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _userController.dispose();
+    _passwordController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(50.0),
+      padding: const EdgeInsets.all(30.0),
       child: Column(
         children: [
-          const TextField(
+          TextField(
+            controller: _userController,
+            style: const TextStyle(color: Colors.white),
+            cursorHeight: 24.0, // Ajusta el valor según tus necesidades
+            cursorRadius: const Radius.circular(
+                2.0), // Ajusta el valor según tus necesidades
+            cursorOpacityAnimates: true,
+            cursorColor: Colors.blue,
             decoration: InputDecoration(
-                labelText: 'Username',
-                labelStyle: TextStyle(color: Colors.white),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Colors
-                          .white), // Cambia el color de la línea cuando el TextField no tiene el foco
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Colors
-                          .blue), // Cambia el color de la línea cuando el TextField tiene el foco
-                ),
-                floatingLabelStyle: TextStyle(color: Colors.blue),
-                fillColor: Colors.white),
-            style: TextStyle(color: Colors.white),
+              labelText: 'Username',
+              labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+              enabledBorder:
+                  Theme.of(context).inputDecorationTheme.enabledBorder,
+              focusedBorder:
+                  Theme.of(context).inputDecorationTheme.focusedBorder,
+              floatingLabelStyle:
+                  Theme.of(context).inputDecorationTheme.floatingLabelStyle,
+              fillColor: Theme.of(context).inputDecorationTheme.fillColor,
+              contentPadding: const EdgeInsets.only(top: 2, bottom: 2),
+            ),
           ),
           const SizedBox(height: 16.0),
-          const TextField(
+          TextField(
+            controller: _passwordController,
+            cursorHeight: 24.0, // Ajusta el valor según tus necesidades
+            cursorRadius: const Radius.circular(
+                2.0), // Ajusta el valor según tus necesidades
+            cursorOpacityAnimates: true,
+            cursorColor: Colors.blue,
             decoration: InputDecoration(
-                labelText: 'Password',
-                labelStyle: TextStyle(color: Colors.white),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Colors
-                          .white), // Cambia el color de la línea cuando el TextField no tiene el foco
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Colors
-                          .blue), // Cambia el color de la línea cuando el TextField tiene el foco
-                ),
-                floatingLabelStyle: TextStyle(color: Colors.blue),
-                fillColor: Colors.white),
-            style: TextStyle(color: Colors.white),
+              labelText: 'Password',
+              labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+              enabledBorder:
+                  Theme.of(context).inputDecorationTheme.enabledBorder,
+              focusedBorder:
+                  Theme.of(context).inputDecorationTheme.focusedBorder,
+              floatingLabelStyle:
+                  Theme.of(context).inputDecorationTheme.floatingLabelStyle,
+              fillColor: Theme.of(context).inputDecorationTheme.fillColor,
+              contentPadding: const EdgeInsets.only(top: 2, bottom: 2),
+            ),
+            style: const TextStyle(color: Colors.white),
             obscureText: true,
           ),
           const SizedBox(height: 24.0),
           Container(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(5.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(130, 40),
+                  ),
                   onPressed: () {
+                    print(_userController.text);
+                    print(_passwordController.text);
                   },
-                  child: Text('Login'),
+                  child: const Text('Login'),
                 ),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(130, 40),
+                  ),
                   onPressed: () {
+                    _userController.clear();
+                    _passwordController.clear();
                   },
-                  child: Text('Clear'),
+                  child: const Text('Clear'),
                 ),
               ],
             ),
