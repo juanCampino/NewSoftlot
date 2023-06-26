@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'screens/loginPage.dart';
+import 'package:softlot/routes/app_routes.dart';
+import 'package:softlot/routes/route_generator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +32,12 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const LoginPage(title: 'Softlot'),
+      initialRoute: AppRoutes.login,
+      onGenerateRoute: RouteGenerator.generateRoute,
+      // When navigating to the "/" route, build the FirstScreen widget.
+      // '/login': (context) => const LoginPage(title: 'Softlot'),
+      // // When navigating to the "/second" route, build the SecondScreen widget.
+      // '/home': (context) => const HomePage(username: _userController.text),
     );
   }
 }

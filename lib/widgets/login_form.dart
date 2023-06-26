@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:softlot/pages/home_page_args.dart';
+import 'package:softlot/routes/app_routes.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -20,39 +22,52 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(30.0),
-      child: Column(
-        children: [
-          FormField(labelText: "Username", controller: _userController),
-          const SizedBox(height: 16.0),
-          FormField(
-            labelText: "Password",
-            controller: _passwordController,
-            obscureText: true,
+    return Material(
+      color: Colors.transparent, // Set the color property to transparent
+
+      child: Container(
+        width: 450,
+        decoration: BoxDecoration(
+          color: const Color.fromRGBO(29, 69, 111, 1),
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(50.0),
+          child: Column(
+            children: [
+              FormField(labelText: "Username", controller: _userController),
+              const SizedBox(height: 16.0),
+              FormField(
+                labelText: "Password",
+                controller: _passwordController,
+                obscureText: true,
+              ),
+              const SizedBox(height: 24.0),
+              Container(
+                padding: const EdgeInsets.all(5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    FormButton(
+                        onPressed: () {
+                          final HomePageArguments arguments =
+                              HomePageArguments(username: _userController.text);
+                          Navigator.pushNamed(context, AppRoutes.home,
+                              arguments: arguments);
+                        },
+                        buttonText: 'Login'),
+                    FormButton(
+                        onPressed: () {
+                          _userController.clear();
+                          _passwordController.clear();
+                        },
+                        buttonText: 'Clear'),
+                  ],
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 24.0),
-          Container(
-            padding: const EdgeInsets.all(5.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                FormButton(
-                    onPressed: () {
-                      print(_userController.text);
-                      print(_passwordController.text);
-                    },
-                    buttonText: 'Login'),
-                FormButton(
-                    onPressed: () {
-                      _userController.clear();
-                      _passwordController.clear();
-                    },
-                    buttonText: 'Clear'),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
